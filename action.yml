@@ -2,10 +2,10 @@ name: 'json-syntax-check'
 description: 'Simply check JSON syntax'
 author: 'Tomoya Kabe <limit.usus@gmail.com>'
 inputs:
-  patterns:
-    description: 'File regex patterns to check syntax'
+  pattern:
+    description: 'File regex pattern to check syntax'
     required: true
-    default: ['\\.json$']
+    default: '\.json$'
 outputs:
   failed_files:
     description: 'File paths whose syntax check failed'

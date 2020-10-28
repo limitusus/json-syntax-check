@@ -4,9 +4,9 @@ Simple JSON syntax checker
 
 ## Inputs
 
-### `patterns`
+### `pattern`
 
-**Required** file patterns to check syntax. Default is `['\.json$']`.
+**Required** file pattern to check syntax. Default is `'\.json$'`.
 
 ## Outputs
 
@@ -19,6 +19,5 @@ File names whose syntax check failed in JSON list format.
 ```yaml
 uses: actions/json-syntax-check@v1
 with:
-  patterns:
-    - '\.json$'
+  pattern: '\.json$'
 ```
