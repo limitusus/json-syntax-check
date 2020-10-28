@@ -14,4 +14,4 @@ jobs:
       - name: json-syntax-check
         uses: limitusus/json-syntax-check@v1
         with:
-          pattern: "ok_[0-9]+\.json$"
+          pattern: "ok_[0-9]+\\.json$"
