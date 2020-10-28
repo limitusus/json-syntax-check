@@ -13,4 +13,4 @@ RUN bundle install
 
 COPY . .
 
-ENTRYPOINT [ "./json_syntax_check" ]
+ENTRYPOINT [ "/usr/src/app/json_syntax_check" ]
