@@ -1,0 +1,16 @@
+name: 'json-syntax-check'
+description: 'Simply check JSON syntax'
+author: 'Tomoya Kabe <limit.usus@gmail.com>'
+inputs:
+  patterns:
+    description: 'File regex patterns to check syntax'
+    required: true
+    default: ['\\.json$']
+outputs:
+  failed_files:
+    description: 'File paths whose syntax check failed'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.patterns }}

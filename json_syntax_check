@@ -1,0 +1,59 @@
+#!/usr/bin/env ruby
+# frozen_string_literal: true
+
+require 'find'
+require 'json'
+
+# JSON checker calling module
+module JSONChecker
+  def self.run(argv)
+    patterns = argv
+    checker = Checker.new(patterns)
+    failures = checker.run
+    puts "::set-output name=failed_files::#{JSON.dump(failures)}"
+    failures.length
+  end
+end
+
+# JSON checker class
+class Checker
+  def initialize(patterns)
+    @patterns = patterns.map { |pat| Regexp.compile(pat) }
+    @files = nil
+    @base = ENV.fetch('BASE', '/data/')
+    @debug = ENV.fetch('DEBUG', '0') != '0'
+  end
+
+  def files
+    return @files unless @files.nil?
+
+    @files = []
+    Find.find(@base) do |file|
+      next unless File.file?(file)
+
+      next unless @patterns.any? { |pat| pat.match?(file) }
+
+      @files << file
+    end
+    puts "base=#{@base} ptns=#{@patterns} files=#{@files}" if @debug
+
+    @files
+  end
+
+  def run
+    failures = []
+    files.each do |file|
+      failures << file unless valid_json?(file)
+    end
+    failures
+  end
+
+  def valid_json?(file)
+    JSON.parse(File.read(file))
+    true
+  rescue JSON::ParserError
+    false
+  end
+end
+
+exit JSONChecker.run(ARGV)
