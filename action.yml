@@ -5,7 +5,7 @@ inputs:
   pattern:
     description: 'File regex pattern to check syntax'
     required: true
-    default: '\.json$'
+    default: '\\.json$'
 outputs:
   failed_files:
     description: 'File paths whose syntax check failed'

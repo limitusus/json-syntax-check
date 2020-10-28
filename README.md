@@ -6,7 +6,7 @@ Simple JSON syntax checker
 
 ### `pattern`
 
-**Required** file pattern to check syntax. Default is `'\.json$'`.
+**Required** file pattern to check syntax. Default is `'\\.json$'`.
 
 ## Outputs
 
@@ -16,8 +16,24 @@ File names whose syntax check failed in JSON list format.
 
 ## Example
 
+Your `.github/workflow/jsoncheck.yml` may look like:
+
 ```yaml
-uses: actions/json-syntax-check@v1
-with:
-  pattern: '\.json$'
+name: JSON check
+
+on:
+  push:
+    paths:
+      - '**.json'
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: json-syntax-check
+        uses: limitusus/json-syntax-check@v1
+        with:
+          pattern: "\\.json$"
 ```
