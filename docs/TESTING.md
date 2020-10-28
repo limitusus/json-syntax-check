@@ -10,5 +10,5 @@ DEBUG=1 BASE=test/ ./json_syntax_check 'ok_[0-9]+\.json$'
 ## Docker test
 
 ```console
-docker run --rm -it -v `pwd`/test/:/data/ json-syntax-check:latest '\.json$'
+docker run --rm -it -v $(pwd)/test/:/data/ json-syntax-check:latest '\.json$'
 ```
