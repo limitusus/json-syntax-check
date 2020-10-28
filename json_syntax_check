@@ -11,12 +11,22 @@ module JSONChecker
     checker = Checker.new(patterns)
     failures = checker.run
     puts "::set-output name=failed_files::#{JSON.dump(failures)}"
+    if failures
+      puts "Files below has/have JSON syntax error (of #{checker.files.length} files)"
+      failures.each do |f|
+        puts "- #{f}"
+      end
+    else
+      puts "No file has JSON syntax error (of #{checker.files.length} files)"
+    end
     failures.length
   end
 end
 
 # JSON checker class
 class Checker
+  attr_reader :files
+
   def initialize(patterns)
     @patterns = patterns.map { |pat| Regexp.compile(pat) }
     @files = nil
