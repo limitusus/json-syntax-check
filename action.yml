@@ -13,7 +13,7 @@ runs:
   using: 'docker'
   image: 'Dockerfile'
   args:
-    - ${{ inputs.patterns }}
+    - ${{ inputs.pattern }}
 branding:
   icon: bell
   color: green
