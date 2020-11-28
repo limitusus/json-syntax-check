@@ -28,7 +28,7 @@ class Checker
   def initialize(patterns)
     @patterns = patterns.map { |pat| Regexp.compile(pat) }
     @files = nil
-    @base = ENV.fetch('BASE', '/github/workspace')
+    @base = ENV.fetch('BASE', ENV.fetch('GITHUB_WORKSPACE'))
     @debug = ENV.fetch('DEBUG', '0') != '0'
   end
 
