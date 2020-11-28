@@ -1,7 +1,7 @@
 FROM ruby:2
 LABEL maintainer "Tomoya Kabe <limit.usus@gmail.com>"
 
-ENV BASE=/data/
+ENV BASE=/github/workspace
 ENV DEBUG=0
 
 RUN mkdir -p /data
