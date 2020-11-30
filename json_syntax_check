@@ -10,17 +10,26 @@ module JSONChecker
     patterns = argv
     checker = Checker.new(patterns)
     failures = checker.run
-    failed_files = failures.map{|entry| entry[0]}.compact
-    puts "::set-output name=failed_files::#{JSON.dump(failed_files)}"
+    puts "::set-output name=failed_files::#{JSON.dump(failures.map(&:file))}"
     if !failures.empty?
       puts "Files below has/have JSON syntax error (of #{checker.files.length} files)"
-      failures.each do |f, h|
-        puts "- #{f}: #{h}"
+      failures.each do |f|
+        puts "- #{f.file}: #{f.hint}"
       end
     else
       puts "No file has JSON syntax error (of #{checker.files.length} files)"
     end
     failures.length
+  end
+end
+
+# Syntax failure
+class Failure
+  attr_reader :file, :hint
+
+  def initialize(file, hint)
+    @file = file
+    @hint = hint
   end
 end
 
@@ -50,29 +59,20 @@ class Checker
   end
 
   def run
-    failures = []
-    files.each do |file|
-      file, hint = valid_json(file)
-      if hint
-        failures << [file, hint]
-      end
-    end
-    failures
+    failures = files.map { |f| validate_json(f) }
+    failures.compact
   end
 
-  def valid_json(file)
-    begin
-      JSON.parse(File.read(file))
-    rescue JSON::ParserError => err
-      hint = err.message.lines.first.chomp unless err.message.lines.nil?
-      if err.message.lines.length > 1
-        hint += "' ..."
-      end
-      hint ||= 'Unknown JSON parse error'
-      return file, hint
-    else
-      return file, nil
-    end
+  def validate_json(file)
+    JSON.parse(File.read(file))
+  rescue JSON::ParserError => e
+    hint = e.message.lines.first.chomp unless e.message.lines.nil?
+    hint += "' ..." if e.message.lines.length > 1
+
+    hint ||= 'Unknown JSON parse error'
+    Failure.new(file, hint)
+  else
+    nil
   end
 end
 
