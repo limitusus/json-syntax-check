@@ -8,6 +8,14 @@ Simple JSON syntax checker
 
 **Required** file pattern to check syntax. Default is `'\\.json$'`.
 
+## Environment variables
+
+### `BASE`
+
+*Optional* base directory in which to look for files matching `pattern`.
+
+If `BASE` is not set, json-syntax-check will look in `GITHUB_WORKSPACE`.
+
 ## Outputs
 
 ### `failed_files`
