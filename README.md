@@ -24,7 +24,7 @@ File names whose syntax check failed in JSON list format.
 
 ## Example
 
-Your `.github/workflow/jsoncheck.yml` may look like:
+Your `.github/workflows/jsoncheck.yml` may look like:
 
 ```yaml
 name: JSON check
