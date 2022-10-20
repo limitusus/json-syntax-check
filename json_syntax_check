@@ -10,7 +10,9 @@ module JSONChecker
     patterns = argv
     checker = Checker.new(patterns)
     failures = checker.run
-    puts "::set-output name=failed_files::#{JSON.dump(failures.map(&:file))}"
+    File.open(ENV.fetch('GITHUB_OUTPUT', './test_output'), 'a') do |f|
+      f.puts "failed_files=#{JSON.dump(failures.map(&:file))}"
+    end
     if failures.empty?
       puts "No file has JSON syntax error (of #{checker.files.length} files)"
     else

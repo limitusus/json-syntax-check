@@ -14,7 +14,8 @@ jobs:
       - name: json-syntax-check
         uses: ./
         with:
-          pattern: "\.json"
+          pattern: "\\.json"
+        continue-on-error: true
       - name: This test should fail
-        if: ${{ success() }}
-        run: exit 1
+        if: ${{ failure() }}
+        run: exit 0
