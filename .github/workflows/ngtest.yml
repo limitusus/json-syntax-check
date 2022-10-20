@@ -1,10 +1,6 @@
 name: JSON check (demo failure-case)
 
-on:
-  push:
-    paths:
-      - '**.json'
-  pull_request:
+on: [push, pull_request]
 
 jobs:
   test:

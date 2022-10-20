@@ -2,6 +2,12 @@
 
 Simple JSON syntax checker
 
+![OK case test passing](https://github.com/limitusus/json-syntax-check/actions/workflows/oktest.yml/badge.svg)
+![NG case test passing](https://github.com/limitusus/json-syntax-check/actions/workflows/ngtest.yml/badge.svg)
+![rubocop passing](https://github.com/limitusus/json-syntax-check/actions/workflows/rubocop.yml/badge.svg)
+
+![Ruby 3](https://img.shields.io/badge/Ruby-3-yellow)
+
 ## Inputs
 
 ### `pattern`
