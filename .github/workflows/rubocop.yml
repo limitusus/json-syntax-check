@@ -10,6 +10,7 @@ jobs:
         ruby-version: 2.6
     - run: |
         gem install bundler
+        bundle config set --local with 'development'
         bundle install
     - name: Setup reviewdog
       env:
