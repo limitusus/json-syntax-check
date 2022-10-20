@@ -1,0 +1,9 @@
+# bundler
+.bundle/
+vendor/
+
+# rbenv
+.ruby-version
+
+# Local test output
+test_output
