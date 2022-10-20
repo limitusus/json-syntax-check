@@ -1,0 +1,20 @@
+name: JSON check (demo failure-case)
+
+on:
+  push:
+    paths:
+      - '**.json'
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+      - name: json-syntax-check
+        uses: ./
+        with:
+          pattern: "\.json"
+      - name: This test should fail
+        if: ${{ success() }}
+        run: exit 1
